@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 import { Card, ChunkyButton, Hint, SectionTitle } from '../../components/UI';
 import { med } from '../../lib/api';
+import { sttAvailable, sttRequestPermission, sttStart, sttStop } from '../../lib/speechToText';
 import { theme } from '../../lib/theme';
 
 interface HoursEntry {
@@ -50,6 +51,8 @@ export default function Hours() {
   const [org, setOrg] = useState('');
   const [role, setRole] = useState('');
   const [reflection, setReflection] = useState('');
+  const [voiceTranscript, setVoiceTranscript] = useState('');
+  const [listening, setListening] = useState(false);
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
@@ -72,11 +75,13 @@ export default function Hours() {
         hours: parseFloat(hours),
         org,
         role,
-        reflection,
+        reflection: reflection || voiceTranscript,
+        voice_transcript: voiceTranscript,
       });
       setShowLog(false);
       setHours('');
       setReflection('');
+      setVoiceTranscript('');
       await load();
     } catch {
       // validation errors leave the sheet open for correction
@@ -204,6 +209,34 @@ export default function Hours() {
               />
 
               <Text style={styles.label}>Anything stick with you today?</Text>
+              {sttAvailable() && (
+                <Pressable
+                  onPress={async () => {
+                    if (listening) {
+                      sttStop();
+                      setListening(false);
+                      return;
+                    }
+                    if (!(await sttRequestPermission())) return;
+                    setListening(
+                      sttStart({
+                        onPartial: (t) => setVoiceTranscript(t),
+                        onFinal: (t) => {
+                          setVoiceTranscript(t);
+                          setReflection(t);
+                        },
+                        onEnd: () => setListening(false),
+                        onError: () => setListening(false),
+                      })
+                    );
+                  }}
+                  style={[styles.voiceBtn, listening && styles.voiceBtnOn]}
+                >
+                  <Text style={styles.voiceBtnText}>
+                    {listening ? '● Listening… tap to stop' : '🎤 Capture by voice'}
+                  </Text>
+                </Pressable>
+              )}
               <TextInput
                 style={[styles.input, { minHeight: 80 }]}
                 placeholder="Thirty seconds now = your essay later. What moment stayed?"
@@ -273,4 +306,13 @@ const styles = StyleSheet.create({
   chipActive: { backgroundColor: theme.accentSoft, borderColor: theme.accent },
   chipText: { fontSize: 13, color: theme.surface.t2, fontWeight: '600' },
   chipTextActive: { color: theme.accentDark },
+  voiceBtn: {
+    marginBottom: 8,
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: theme.surface.s2,
+    alignItems: 'center',
+  },
+  voiceBtnOn: { backgroundColor: theme.accentSoft, borderWidth: 1, borderColor: theme.accent },
+  voiceBtnText: { fontWeight: '700', color: theme.accentDark, fontSize: 14 },
 });

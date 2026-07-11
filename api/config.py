@@ -5,7 +5,10 @@ import os
 
 
 class Config:
-    # SQLite file path. Self-contained by default; point at a mounted volume in prod.
+    # Postgres on Railway (DATABASE_URL). Falls back to SQLite for local dev/tests.
+    database_url: str = os.environ.get("DATABASE_URL", "")
+
+    # SQLite file path when DATABASE_URL is unset.
     db_path: str = os.environ.get(
         "DILLY_MED_DB",
         os.path.join(os.path.dirname(os.path.abspath(__file__)), "dilly_medical.db"),

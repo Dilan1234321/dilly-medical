@@ -136,6 +136,15 @@ export default function Home() {
         </Pressable>
       )}
 
+      <SectionTitle>Practice</SectionTitle>
+      <Card>
+        <ChunkyButton label="MMI interview practice" onPress={() => router.push('/(app)/interview' as any)} />
+        <View style={{ height: 8 }} />
+        <ChunkyButton label="Secondary essay Craft" variant="ghost" onPress={() => router.push('/(app)/secondaries' as any)} />
+        <View style={{ height: 8 }} />
+        <ChunkyButton label="Personal statement / W&A Craft" variant="ghost" onPress={() => router.push('/(app)/craft' as any)} />
+      </Card>
+
       {brief && brief.open_plan_items > 0 && (
         <Card>
           <Text style={styles.planCount}>

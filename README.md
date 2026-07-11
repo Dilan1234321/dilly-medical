@@ -34,6 +34,47 @@ fabrication (every generated claim cites a `[F#]` fact or `[H#]` log entry),
 never a numeric admission chance, never Caribbean schools, no markdown emphasis
 in Dilly's voice.
 
+## v0.2 — what's new
+
+- **60+ med schools** (`med_schools.json` + `med_schools_extended.json`) with mission tags, IS/OOS logic, School Scout
+- **Secondary essay Craft** — generic + per-school prompts; drafts from real facts only (`/secondaries/craft`)
+- **MMI interview practice** — 8 station bank, voice or typed answers, AI feedback (`/interview/*`)
+- **Voice reflection capture** — `expo-speech-recognition` on Hours tab; stored as `voice_transcript`
+- **Live opportunity crawler** — NSF REU, USAJobs health trainees, ScribeAmerica, Idealist → `live_opportunities` table; daily GitHub Action
+- **Postgres on Railway** — set `DATABASE_URL`; SQLite remains the local default
+- **TestFlight** — `mobile/build1001.sh` (after `npx expo prebuild --platform ios`)
+
+## Deploy to Railway
+
+1. Create a new Railway project from this folder (or the standalone `dilly-medical` repo).
+2. Add **Postgres** plugin → Railway sets `DATABASE_URL` automatically.
+3. Set env vars: `ANTHROPIC_API_KEY`, `CRON_SECRET`, `DILLY_MED_DEV=0`, `DILLY_MED_CORS=https://your-app`.
+4. Railway reads `railway.json` + `Dockerfile`; health check at `/health`.
+5. Point mobile: `EXPO_PUBLIC_MED_API_BASE=https://<your-railway-domain>`.
+
+## Standalone GitHub repo
+
+```bash
+chmod +x dilly-medical/scripts/create-github-repo.sh
+./dilly-medical/scripts/create-github-repo.sh
+```
+
+Creates `github.com/Dilan1234321/dilly-medical` via `git subtree split`.
+
+## TestFlight (iOS)
+
+```bash
+cd dilly-medical/mobile
+npm install
+npx expo install expo-speech-recognition expo-dev-client
+npx expo prebuild --platform ios
+chmod +x build1001.sh
+# Founder runs when ready:
+ASC_API_KEY=... ASC_ISSUER=... ./build1001.sh
+```
+
+Native rebuild required for voice (`expo-speech-recognition`). Simulator can type reflections until then.
+
 ## Repo layout
 
 ```
@@ -46,9 +87,9 @@ dilly-medical/
 │   ├── school_fit.py     # School Scout engine
 │   ├── amcas_calendar.py # cycle phase engine (timing intelligence)
 │   ├── benchmarks.py     # AAMC-approximate benchmark bands
-│   ├── data/             # med_schools.json (29 MD/DO), opportunities.json
-│   └── routers/          # auth, profile, hours, readiness, schools,
-│                         # opportunities, craft, brief, misc
+│   ├── data/             # schools (60+), secondaries, MMI stations, opportunities
+│   ├── crawler/          # live opportunity ingest
+│   └── routers/          # auth, hours, readiness, schools, secondaries, interview, cron, …
 ├── mobile/               # Expo / React Native app (expo-router, SDK 55)
 │   ├── app/              # onboarding + (app)/ tabs: Home, Hours, Schools, You
 │   ├── components/       # UI primitives (chunky buttons, DillyFace), paywall

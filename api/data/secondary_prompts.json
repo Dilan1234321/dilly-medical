@@ -1,0 +1,62 @@
+{
+  "generic_prompts": [
+    {"id": "why_medicine", "label": "Why medicine?", "text": "Explain your motivation to pursue medicine. What experiences solidified this path?", "char_limit": 2500},
+    {"id": "diversity", "label": "Diversity / unique background", "text": "How will your background, values, or experiences contribute to your future medical school class?", "char_limit": 2000},
+    {"id": "challenge", "label": "Challenge / adversity", "text": "Describe a significant challenge you faced and how you responded.", "char_limit": 2000},
+    {"id": "leadership", "label": "Leadership", "text": "Describe a time you demonstrated leadership. What was the outcome?", "char_limit": 1500},
+    {"id": "research", "label": "Research interest", "text": "Describe your research experience and how it shaped your approach to medicine.", "char_limit": 2000},
+    {"id": "service", "label": "Service to others", "text": "Describe your commitment to serving others, especially underserved communities.", "char_limit": 2000},
+    {"id": "gap_year", "label": "Gap / time off", "text": "If you took or plan to take time off before medical school, how will you use it productively?", "char_limit": 1500},
+    {"id": "ai_medicine", "label": "AI in medicine", "text": "How do you think AI will change medicine, and how are you preparing to practice in that world?", "char_limit": 1500}
+  ],
+  "school_prompts": {
+    "harvard": [
+      {"id": "harvard_mission", "label": "Mission fit", "text": "How will you contribute to Harvard Medical School's mission to alleviate human suffering?", "char_limit": 4000},
+      {"id": "harvard_research", "label": "Scholarly work", "text": "Describe your most meaningful research or scholarly project.", "char_limit": 3000}
+    ],
+    "ucsf": [
+      {"id": "ucsf_underserved", "label": "Underserved populations", "text": "Describe your experience working with underserved populations and what you learned.", "char_limit": 2500},
+      {"id": "ucsf_why", "label": "Why UCSF?", "text": "Why UCSF School of Medicine?", "char_limit": 1500}
+    ],
+    "duke": [
+      {"id": "duke_community", "label": "Community", "text": "Tell us about a community you are part of and your role in it.", "char_limit": 2000},
+      {"id": "duke_different", "label": "What makes you different", "text": "What is something about you that is not in the rest of your application?", "char_limit": 1500}
+    ],
+    "michigan": [
+      {"id": "michigan_career", "label": "Career goals", "text": "What are your career goals in medicine?", "char_limit": 1500},
+      {"id": "michigan_contribution", "label": "Contribution", "text": "How will you contribute to Michigan Medicine's learning community?", "char_limit": 2000}
+    ],
+    "unc": [
+      {"id": "unc_nc", "label": "NC connection", "text": "Describe your connection to North Carolina and why you want to train here.", "char_limit": 2000},
+      {"id": "unc_rural", "label": "Rural / underserved", "text": "Discuss your interest in rural or underserved medicine in North Carolina.", "char_limit": 2000}
+    ],
+    "usf": [
+      {"id": "usf_select", "label": "SELECT / mission", "text": "How do your experiences align with USF's mission and the SELECT program's focus on emotional intelligence?", "char_limit": 2500},
+      {"id": "usf_florida", "label": "Florida", "text": "Why do you want to attend medical school in Florida?", "char_limit": 1500}
+    ],
+    "fsu": [
+      {"id": "fsu_service", "label": "Service", "text": "Describe your service to Florida communities and how it informs your path to medicine.", "char_limit": 2500},
+      {"id": "fsu_mission", "label": "Mission", "text": "How does FSU College of Medicine's mission resonate with your goals?", "char_limit": 2000}
+    ],
+    "einstein": [
+      {"id": "einstein_bronx", "label": "Bronx / urban health", "text": "What draws you to training in the Bronx and serving an urban underserved population?", "char_limit": 2500}
+    ],
+    "tulane": [
+      {"id": "tulane_nola", "label": "New Orleans / community", "text": "How will you engage with the New Orleans community during medical school?", "char_limit": 2000},
+      {"id": "tulane_service", "label": "Service", "text": "Describe your most meaningful service experience.", "char_limit": 2000}
+    ],
+    "rush": [
+      {"id": "rush_urban", "label": "Urban health", "text": "Why are you interested in urban community medicine?", "char_limit": 2000}
+    ],
+    "stanford": [
+      {"id": "stanford_innovation", "label": "Innovation", "text": "Describe something you built, created, or improved — in any domain.", "char_limit": 2000},
+      {"id": "stanford_why", "label": "Why Stanford?", "text": "Why Stanford School of Medicine?", "char_limit": 1500}
+    ],
+    "pcom_do": [
+      {"id": "pcom_osteopathic", "label": "Why osteopathic medicine?", "text": "Why osteopathic medicine, and why PCOM?", "char_limit": 2500}
+    ],
+    "rowan_do": [
+      {"id": "rowan_do", "label": "Why DO?", "text": "What experiences led you to pursue osteopathic medicine at Rowan-Virtua?", "char_limit": 2000}
+    ]
+  }
+}

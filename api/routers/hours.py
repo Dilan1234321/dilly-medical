@@ -38,6 +38,7 @@ class HoursCreate(BaseModel):
     role: str = Field(default="", max_length=120)
     occurred_on: str = ""          # ISO date; defaults to today
     reflection: str = Field(default="", max_length=2000)
+    voice_transcript: str = Field(default="", max_length=4000)
 
 
 @router.get("/hours")
@@ -66,14 +67,15 @@ def log_hours(body: HoursCreate, user: dict = Depends(require_user)):
     if body.category not in HOUR_CATEGORIES:
         raise HTTPException(status_code=400, detail={"code": "BAD_CATEGORY", "categories": HOUR_CATEGORIES})
     occurred = body.occurred_on or datetime.now(timezone.utc).date().isoformat()
+    reflection_text = (body.reflection or body.voice_transcript or "").strip()
     with get_db() as conn:
         cur = conn.execute(
-            "INSERT INTO hours_log (email, category, hours, org, role, occurred_on, reflection, created_at) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO hours_log (email, category, hours, org, role, occurred_on, reflection, voice_transcript, created_at) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (user["email"], body.category, body.hours, body.org.strip(), body.role.strip(),
-             occurred, body.reflection.strip(), datetime.now(timezone.utc).isoformat()),
+             occurred, reflection_text, body.voice_transcript.strip(), datetime.now(timezone.utc).isoformat()),
         )
-    return {"id": cur.lastrowid, "captured_reflection": bool(body.reflection.strip())}
+    return {"id": cur.lastrowid, "captured_reflection": bool(reflection_text)}
 
 
 @router.delete("/hours/{entry_id}")

@@ -11,7 +11,16 @@
       "bundleIdentifier": "com.dilly.medical",
       "supportsTablet": false
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Dilly Medical uses the microphone so you can capture shift reflections by voice.",
+          "speechRecognitionPermission": "Dilly Medical uses speech recognition to turn your spoken reflections into essay material."
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": false
     }

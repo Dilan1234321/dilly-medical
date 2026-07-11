@@ -10,6 +10,7 @@ import os
 
 from fastapi import APIRouter, Depends
 
+from ..database import get_db
 from ..deps import require_user
 from ..readiness import run_readiness_read
 
@@ -39,14 +40,48 @@ def _load() -> dict:
     return _cache
 
 
+def _live_opportunities() -> list[dict]:
+    try:
+        with get_db() as conn:
+            rows = conn.execute(
+                "SELECT id, title, org, url, category, source, location, paid, description "
+                "FROM live_opportunities WHERE active=1 ORDER BY fetched_at DESC LIMIT 80"
+            ).fetchall()
+        out = []
+        for r in rows:
+            cat = r["category"]
+            fills = [cat.replace("_paid", "").replace("_volunteer", "")] if cat else ["clinical"]
+            if "research" in cat:
+                fills = ["research"]
+            elif "volunteer" in cat or cat == "volunteering":
+                fills = ["service"]
+            out.append({
+                "id": f"live_{r['id']}",
+                "title": r["title"],
+                "org_hint": r["org"] or r["source"],
+                "fills": fills,
+                "paid": bool(r["paid"]),
+                "commitment": "See listing",
+                "why_base": (r["description"] or "Live listing matched to your profile gaps.")[:200],
+                "how": r["url"] or "Open the listing link",
+                "live": True,
+                "url": r["url"],
+                "location": r.get("location") or "",
+            })
+        return out
+    except Exception:
+        return []
+
+
 @router.get("/opportunities")
 def opportunities(user: dict = Depends(require_user)):
-    read = run_readiness_read(user)  # deterministic + free (no Move: no LLM, no verdict shown)
+    read = run_readiness_read(user)
     band_by_dim = {d["dimension"]: d["band"] for d in read["dimensions"]}
     open_lane = read["your_open_lane"]
 
+    catalog = _load()["opportunities"] + _live_opportunities()
     ranked = []
-    for opp in _load()["opportunities"]:
+    for opp in catalog:
         urgency = 0
         why_chips = []
         for fill in opp["fills"]:

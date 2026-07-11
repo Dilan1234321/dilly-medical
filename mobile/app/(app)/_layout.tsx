@@ -41,6 +41,8 @@ export default function AppLayout() {
       <Tabs.Screen name="readiness" options={{ href: null }} />
       <Tabs.Screen name="opportunities" options={{ href: null }} />
       <Tabs.Screen name="craft" options={{ href: null }} />
+      <Tabs.Screen name="interview" options={{ href: null }} />
+      <Tabs.Screen name="secondaries" options={{ href: null }} />
     </Tabs>
   );
 }

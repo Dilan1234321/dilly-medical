@@ -26,12 +26,13 @@ def health():
     except Exception:
         pass
     db_ok = True
+    db_backend = "postgres" if config.database_url else "sqlite"
     try:
         with get_db() as conn:
             conn.execute("SELECT 1")
     except Exception:
         db_ok = False
-    return {"ok": db_ok, "commit": commit, "llm": is_llm_available()}
+    return {"ok": db_ok, "commit": commit, "llm": is_llm_available(), "db": db_backend}
 
 
 @router.get("/moves/usage", tags=["moves"])

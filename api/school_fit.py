@@ -17,6 +17,7 @@ from . import benchmarks
 from .database import get_db
 
 _DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "med_schools.json")
+_EXTENDED_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "med_schools_extended.json")
 _cache: dict | None = None
 
 
@@ -25,6 +26,14 @@ def load_schools() -> dict:
     if _cache is None:
         with open(_DATA_PATH, "r") as f:
             _cache = json.load(f)
+        if os.path.isfile(_EXTENDED_PATH):
+            with open(_EXTENDED_PATH, "r") as f:
+                extra = json.load(f)
+            seen = {s["id"] for s in _cache["schools"]}
+            for s in extra.get("schools", []):
+                if s["id"] not in seen:
+                    _cache["schools"].append(s)
+                    seen.add(s["id"])
     return _cache
 
 

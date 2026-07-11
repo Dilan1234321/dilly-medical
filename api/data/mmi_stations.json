@@ -1,0 +1,60 @@
+{
+  "stations": [
+    {
+      "id": "mmi_ethics_01",
+      "type": "ethical",
+      "prompt": "A 16-year-old requests birth control from you during a clinic shift. Their parent is in the waiting room and has told staff they want to be present for every visit. The teen asks you not to tell their parent. What do you do?",
+      "probe": "Walk me through who you talk to, what you say, and what principle guides you.",
+      "rubric": ["patient autonomy", "minors and consent", "communication", "safety screening"]
+    },
+    {
+      "id": "mmi_ethics_02",
+      "type": "ethical",
+      "prompt": "You witness a fellow volunteer take a photo of a patient in the ER without consent and post it to a group chat as a 'crazy case.' What do you do?",
+      "probe": "What is your first action in the next five minutes?",
+      "rubric": ["patient privacy", "professionalism", "speaking up", "harm reduction"]
+    },
+    {
+      "id": "mmi_team_01",
+      "type": "teamwork",
+      "prompt": "Your research PI wants you to be second author on a paper, but a postdoc who did most of the analysis is being left off. You did six months of data collection.",
+      "probe": "How do you handle the conversation with your PI?",
+      "rubric": ["integrity", "authorship ethics", "advocacy", "relationship preservation"]
+    },
+    {
+      "id": "mmi_policy_01",
+      "type": "policy",
+      "prompt": "Your county is debating whether to fund a needle-exchange program. A town hall attendee says it 'enables addiction.' You have two minutes at the microphone.",
+      "probe": "What do you say?",
+      "rubric": ["public health framing", "empathy", "evidence", "respectful disagreement"]
+    },
+    {
+      "id": "mmi_motivation_01",
+      "type": "motivation",
+      "prompt": "Tell me about a time you changed your mind about something important because of a patient or person you were serving.",
+      "probe": "What specifically changed, and what did you do differently after?",
+      "rubric": ["specific story", "reflection", "growth", "connection to medicine"]
+    },
+    {
+      "id": "mmi_stress_01",
+      "type": "stress",
+      "prompt": "You are failing organic chemistry mid-semester while working 20 hours a week as a scribe. Your pre-health advisor suggests you drop the class. You disagree.",
+      "probe": "What is your plan for the next four weeks?",
+      "rubric": ["self-awareness", "concrete plan", "asking for help", "realistic tradeoffs"]
+    },
+    {
+      "id": "mmi_ai_01",
+      "type": "policy",
+      "prompt": "A hospital wants to use an AI triage tool that is 15% less accurate for patients with darker skin tones. Leadership says it will still save money.",
+      "probe": "What questions would you raise in the ethics committee?",
+      "rubric": ["health equity", "AI in medicine", "patient harm", "systems thinking"]
+    },
+    {
+      "id": "mmi_communication_01",
+      "type": "communication",
+      "prompt": "A patient's family member is yelling at the front desk because wait times are three hours. You are a volunteer with no clinical authority.",
+      "probe": "What do you say and do in the first minute?",
+      "rubric": ["de-escalation", "empathy", "boundaries", "escalation to staff"]
+    }
+  ]
+}
