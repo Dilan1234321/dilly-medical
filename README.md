@@ -46,20 +46,28 @@ in Dilly's voice.
 
 ## Deploy to Railway
 
-1. Create a new Railway project from this folder (or the standalone `dilly-medical` repo).
-2. Add **Postgres** plugin → Railway sets `DATABASE_URL` automatically.
-3. Set env vars: `ANTHROPIC_API_KEY`, `CRON_SECRET`, `DILLY_MED_DEV=0`, `DILLY_MED_CORS=https://your-app`.
-4. Railway reads `railway.json` + `Dockerfile`; health check at `/health`.
-5. Point mobile: `EXPO_PUBLIC_MED_API_BASE=https://<your-railway-domain>`.
+Run each command on its own line (do not paste `#` comment lines into the terminal).
+
+```bash
+cd dilly-medical
+railway login                    # re-auth if token expired
+railway init                     # new project, or: railway link
+railway add --database postgres  # Railway v5 CLI (not --plugin)
+railway variables set ANTHROPIC_API_KEY=sk-... CRON_SECRET=your-secret DILLY_MED_DEV=0
+railway up
+railway domain                   # optional: generate public URL
+```
+
+Railway reads `railway.json` + `Dockerfile`; health check at `/health`.
+Point mobile: `EXPO_PUBLIC_MED_API_BASE=https://<your-railway-domain>`.
 
 ## Standalone GitHub repo
 
 ```bash
-chmod +x dilly-medical/scripts/create-github-repo.sh
-./dilly-medical/scripts/create-github-repo.sh
+bash dilly-medical/scripts/create-github-repo.sh
 ```
 
-Creates `github.com/Dilan1234321/dilly-medical` via `git subtree split`.
+Uses HTTPS (not SSH). Creates or updates `github.com/Dilan1234321/dilly-medical` via `git subtree split`.
 
 ## TestFlight (iOS)
 

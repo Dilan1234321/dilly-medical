@@ -24,7 +24,8 @@ def client():
     # Wipe all tables between tests so each test is hermetic.
     with get_db() as conn:
         for table in ("users", "sessions", "auth_codes", "facts", "hours_log",
-                      "school_list", "crafts", "readiness_reads", "plan_items"):
+                      "school_list", "crafts", "readiness_reads", "plan_items",
+                      "live_opportunities", "interview_sessions", "secondary_drafts"):
             conn.execute(f"DELETE FROM {table}")
     with TestClient(app) as c:
         yield c

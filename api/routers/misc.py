@@ -7,6 +7,7 @@ import subprocess
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
+from ..config import config
 from ..database import get_db
 from ..deps import require_user
 from ..llm import is_llm_available

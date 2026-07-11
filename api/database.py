@@ -299,10 +299,17 @@ def _migrate(conn: DbConn):
             pass
 
 
+def _schema_sql() -> str:
+    """SQLite locally; SERIAL PKs on Postgres (Railway)."""
+    if not _use_postgres():
+        return _SCHEMA_SQLITE
+    return _SCHEMA_SQLITE.replace("INTEGER PRIMARY KEY AUTOINCREMENT", "SERIAL PRIMARY KEY")
+
+
 def init_db() -> None:
     with _lock:
         with get_db() as conn:
-            conn.executescript(_SCHEMA_SQLITE)
+            conn.executescript(_schema_sql())
             _migrate(conn)
 
 

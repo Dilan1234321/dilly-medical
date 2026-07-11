@@ -14,15 +14,11 @@ COPY scripts/ ./scripts/
 
 ENV PYTHONPATH=/app
 ENV DILLY_MED_DEV=0
+ENV PORT=8100
 
 EXPOSE 8100
 
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-    CMD curl -f http://localhost:8100/health || exit 1
+    CMD curl -f "http://localhost:${PORT}/health" || exit 1
 
-CMD ["uvicorn", "api.main:app", \
-     "--host", "0.0.0.0", \
-     "--port", "8100", \
-     "--workers", "2", \
-     "--timeout-keep-alive", "5", \
-     "--limit-concurrency", "100"]
+CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8100} --workers 2 --timeout-keep-alive 5 --limit-concurrency 100"]

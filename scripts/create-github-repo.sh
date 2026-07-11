@@ -17,8 +17,9 @@ git pull "$WORKSPACE_ROOT" dilly-medical-standalone
 git branch -M main
 
 if gh repo view Dilan1234321/dilly-medical &>/dev/null; then
-  echo "Repo exists — pushing main"
-  git remote add origin git@github.com:Dilan1234321/dilly-medical.git
+  echo "Repo exists — pushing main (HTTPS via gh credentials)"
+  git remote remove origin 2>/dev/null || true
+  git remote add origin "https://github.com/Dilan1234321/dilly-medical.git"
   git push -u origin main
 else
   echo "Creating repo dilly-medical"
