@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Dilly Medical",
+    "slug": "dilly-medical",
+    "scheme": "dillymedical",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.dilly.medical",
+      "supportsTablet": false
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}
